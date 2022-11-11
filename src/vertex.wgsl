@@ -17,7 +17,7 @@ fn vs_main(in: VertexInput) -> VertexOutput {
     );
 
     var out: VertexOutput;
-    out.coord =vertices[in.vertex_index];
+    out.coord = vertices[in.vertex_index];
     out.position = vec4<f32>(out.coord, 0.0, 1.0);
 
     return out;

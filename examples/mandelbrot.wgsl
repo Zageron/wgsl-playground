@@ -9,6 +9,8 @@ const ITERATIONS: i32 = 45;
 
 @fragment
 fn fs_main(in: VertexOutput) -> @location(0) vec4<f32> {
+    var ITERATIONS: i32 = 45;
+    
     let c: vec2<f32> = (in.coord + vec2<f32>(-0.5, 0.)) * 1.3;
     var x: f32 = 0.;
     var y: f32 = 0.;
