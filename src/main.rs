@@ -36,18 +36,6 @@ enum UserEvents {
     WGPUError,
 }
 
-#[derive(Parser)]
-struct Opts {
-    wgsl_file: PathBuf,
-
-    #[clap(short, long)]
-    create: bool,
-
-    #[clap(short, long)]
-    always_on_top: bool,
-}
-
-#[repr(C)]
 #[derive(Copy, Clone, Debug, bytemuck::Zeroable, bytemuck::Pod)]
 struct Uniforms {
     pub mouse: [f32; 2],
@@ -156,11 +144,15 @@ impl VertexUniforms {
 #[derive(Copy, Clone, Debug, bytemuck::Zeroable, bytemuck::Pod)]
 struct FragmentUniforms {
     pub index: u32,
+    pub window_size: [f32; 2],
 }
 
 impl Default for FragmentUniforms {
     fn default() -> FragmentUniforms {
-        FragmentUniforms { index: 0 }
+        FragmentUniforms {
+            index: 0,
+            window_size: [0., 0.],
+        }
     }
 }
 
@@ -296,6 +288,7 @@ impl Playground {
                 &DeviceDescriptor {
                     features: Features::empty(),
                     limits: Limits::default(),
+                    label: None,
                 },
                 None,
             )
